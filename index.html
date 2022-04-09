@@ -13,36 +13,31 @@
 </head>
 
 <body>
-  <header class="text-center">
-    <h1 class="app-title"><i class="fa-solid fa-cloud-sun"></i>  Weather Dashboard  <i class="fa-solid fa-cloud-sun"></i></h1>
+  <header class="text-center bg-primary p-2">
+    <h1 class=" text-white app-title"><i class="fa-solid fa-cloud-sun"></i>  Weather Dashboard  <i class="fa-solid fa-cloud-sun"></i></h1>
   </header>
 
-  <main>
-   <div class="row">
-     <div class="col-md-4 card"> 
-      <form id="search-city" class="card-body">
-         <h3 class="card-header">Search For a City</h3>
-         <input name="city" id="city" type="text" autofocus="true" class="form-input" />
-         <button type="submit" class="btn">Search</button>
-      </form>
-      <div class="card">
+  <main class="row justify-space-between">
+   <div class="col-md-4">
+         <div class="border-bottom-3 border-dark card-header">Search For a City:
+            <form id="search-city" class="card-body">
+               <input name="city" id="city" type="text" autofocus="true" class="form-input" />
+               <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+         </div>
+      <div class="card" id="past-searches">
          Past Searches
       </div>
-     </div>
+   </div>
    
-
-
-   
-      <div class="col-md-8">
-         <div class="row">
-            <h2 class="subtitle">Search Results<span id="search-results"></span></h2>
-            <div id="current-weather">
-            </div>
-         </div>
-         <div class="row" id="five-day" class="list-group">
-            5-Day Forecast
-         </div>  
+   <div class="col-md-8">
+      <div class="row border-bottom-3" id="current-weather">
+         <h2 class="subtitle"><span id="current-city"></span></h2>
+         <div id="current-info"></div>
       </div>
+      <div class="row" id="five-day" class="five-day">
+         5-Day Forecast
+      </div>  
    </div>
  </main>
 
