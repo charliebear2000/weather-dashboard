@@ -1,5 +1,7 @@
 var SearchForCityEl = document.querySelector("#search-city");
 var cityInputEl = document.querySelector("#city");
+var currentWeatherContainerEl = document.querySelector("#current-info");
+var currentSearch = document.querySelector("#current-city");
 
 
 var formSubmitHandler = function(event) {
@@ -10,6 +12,7 @@ var formSubmitHandler = function(event) {
 
    if(city) {
       getWeatherInfo(city);
+      cityInputEl.value = "";
       
    } else {
       alert("Please enter a valid city name.")
@@ -19,17 +22,65 @@ var formSubmitHandler = function(event) {
 var getWeatherInfo = function(city) {
    //api info
    var apiKey = "1e33c1c2b12a02ddb63a5e8d8a87248e"
-   var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+   var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
 
    
 
    fetch(apiURL)
    .then(function(response) {
       response.json().then(function(data) {
-         console.log(data)
+         currentWeather(data, city);
+         console.log(data);
       });
    });
 };
 
+var uvi = function(lat,lon) {
+   var apiKey = "1e33c1c2b12a02ddb63a5e8d8a87248e"
+   var apiURL = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`
+
+   fetch(apiURL)
+   .then(function(response) {
+      response.json().then(function(data) {
+         displayUvi(data)
+         console.log(data)
+      });
+   });
+   console.log(lat);
+   console.log(lon);
+}
+
+var currentWeather = function(weather, citySearch) {
+   
+   // clear old content
+   currentWeatherContainerEl.textContent = "";
+   currentSearch.textContent = citySearch;
+
+   // div to hold temperature info
+   var tempEl = document.createElement("div");
+   tempEl.textContent = "Temperature: " + weather.main.temp + "degrees F";
+   currentWeatherContainerEl.appendChild(tempEl);
+
+   // div to hold wind info
+   var windEl = document.createElement("div");
+   windEl.textContent = "Wind: " + weather.wind.speed + " MPH";
+   currentWeatherContainerEl.appendChild(windEl);
+   
+   // div to hold humidity info
+   var humidityEl = document.createElement("div");
+   humidityEl.textContent = "Humidity: " + weather.main.humidity + " %";
+   currentWeatherContainerEl.appendChild(humidityEl);
+
+   var lat = weather.coord.lat;
+   var lon = weather.coord.lon;
+   uvi(lat,lon);
+
+}
+
+var displayUvi = function(index) {
+   var uviEl = document.createElement("div");
+   uviEl.textContent = "UV Index: " + index.value;
+   currentWeatherContainerEl.appendChild(uviEl);
+}
 
 SearchForCityEl.addEventListener("submit", formSubmitHandler);
