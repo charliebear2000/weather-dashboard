@@ -2,6 +2,7 @@ var SearchForCityEl = document.querySelector("#search-city");
 var cityInputEl = document.querySelector("#city");
 var currentWeatherContainerEl = document.querySelector("#current-info");
 var currentSearch = document.querySelector("#current-city");
+var fiveDayEl = document.querySelector("#five-day");
 
 
 var formSubmitHandler = function(event) {
@@ -12,6 +13,7 @@ var formSubmitHandler = function(event) {
 
    if(city) {
       getWeatherInfo(city);
+      fiveDay(city);
       cityInputEl.value = "";
       
    } else {
@@ -50,6 +52,19 @@ var uvi = function(lat,lon) {
    console.log(lon);
 }
 
+var fiveDay = function(city) {
+   var apiKey = "1e33c1c2b12a02ddb63a5e8d8a87248e"
+   var apiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`
+
+   fetch(apiURL)
+   .then(function(response) {
+      response.json().then(function(data) {
+         displayFiveDay(data);
+         console.log(data);
+      });
+   });
+};
+
 var currentWeather = function(weather, citySearch) {
    
    // clear old content
@@ -81,6 +96,23 @@ var displayUvi = function(index) {
    var uviEl = document.createElement("div");
    uviEl.textContent = "UV Index: " + index.value;
    currentWeatherContainerEl.appendChild(uviEl);
+}
+
+var displayFiveDay = function(weather) {
+   var eachDay = weather.list;
+   console.log(eachDay);
+
+   for(var i = 7; i < eachDay.length; i = i + 8) {
+      var dailyForecast = eachDay[i];
+      console.log(dailyForecast);
+
+      var futureEl = document.createElement("div");
+      futureEl.textContent = dailyForecast.main.temp + " degrees F";
+      console.log(futureEl);
+      fiveDayEl.appendChild(futureEl);
+   }
+
+   
 }
 
 SearchForCityEl.addEventListener("submit", formSubmitHandler);
