@@ -107,9 +107,23 @@ var displayFiveDay = function(weather) {
       console.log(dailyForecast);
 
       var futureEl = document.createElement("div");
-      futureEl.textContent = dailyForecast.main.temp + " degrees F";
-      console.log(futureEl);
-      fiveDayEl.appendChild(futureEl);
+      futureEl.classList = "card";
+
+      var futureTempEl = document.createElement("span");
+      futureTempEl.classList = "card-body";
+      futureTempEl.textContent = dailyForecast.main.temp + " degrees F";
+      fiveDayEl.appendChild(futureTempEl);
+
+      var futureWindEl = document.createElement("span");
+      futureWindEl.childList = "card-body";
+      futureWindEl.textContent = dailyForecast.wind.speed + " MPH";
+      fiveDayEl.appendChild(futureWindEl);
+
+      var futureHumidityEl = document.createElement("span");
+      futureHumidityEl.classList = "card-body";
+      futureHumidityEl.textContent = dailyForecast.main.humidity + " %";
+      fiveDayEl.appendChild(futureHumidityEl);
+
    }
 
    
