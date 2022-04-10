@@ -3,6 +3,8 @@ var cityInputEl = document.querySelector("#city");
 var currentWeatherContainerEl = document.querySelector("#current-info");
 var currentSearch = document.querySelector("#current-city");
 var fiveDayEl = document.querySelector("#five-day");
+var savedCities = [];
+var savedSearchContainerEl = document.querySelector("#past-searches");
 
 
 var formSubmitHandler = function(event) {
@@ -14,12 +16,16 @@ var formSubmitHandler = function(event) {
    if(city) {
       getWeatherInfo(city);
       fiveDay(city);
+      savedCities.push({city});
       cityInputEl.value = "";
       
    } else {
       alert("Please enter a valid city name.")
    }
+   console.log(savedCities);
+   savedSearch();
 }
+
 
 var getWeatherInfo = function(city) {
    //api info
@@ -32,7 +38,7 @@ var getWeatherInfo = function(city) {
    .then(function(response) {
       response.json().then(function(data) {
          currentWeather(data, city);
-         console.log(data);
+         //console.log(data);
       });
    });
 };
@@ -45,11 +51,11 @@ var uvi = function(lat,lon) {
    .then(function(response) {
       response.json().then(function(data) {
          displayUvi(data)
-         console.log(data)
+         //console.log(data)
       });
    });
-   console.log(lat);
-   console.log(lon);
+   //console.log(lat);
+   //console.log(lon);
 }
 
 var fiveDay = function(city) {
@@ -60,10 +66,27 @@ var fiveDay = function(city) {
    .then(function(response) {
       response.json().then(function(data) {
          displayFiveDay(data);
-         console.log(data);
+         //console.log(data);
       });
    });
 };
+
+var savedSearch = function() {
+   localStorage.setItem("savedCities", JSON.stringify(savedCities));
+};
+
+var pastSearch = function() {
+   savedCities = JSON.parse(localStorage.getItem("savedCities"));
+   if(!savedCities) {
+      savedCities = [];
+   }
+
+   for(var i = savedCities.length; i > savedCities.length-6; i--) {
+      var savedSearchEl = document.createElement("div");
+      savedSearchEl.textContent = city.city;
+      savedSearchContainerEl.appendChild(savedSearchEl);
+   }
+}
 
 var currentWeather = function(weather, citySearch) {
    
@@ -71,9 +94,18 @@ var currentWeather = function(weather, citySearch) {
    currentWeatherContainerEl.textContent = "";
    currentSearch.textContent = citySearch;
 
+   var date = document.createElement("span");
+   date.textContent = " (" + moment(weather.dt.value).format("MMM D, YYYY") + ") ";
+   currentSearch.appendChild(date);
+
+   var weatherIcon = document.createElement("img");
+   weatherIcon.setAttribute("src", `http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`);
+   currentSearch.appendChild(weatherIcon);
+   
+
    // div to hold temperature info
    var tempEl = document.createElement("div");
-   tempEl.textContent = "Temperature: " + weather.main.temp + "degrees F";
+   tempEl.textContent = "Temperature: " + weather.main.temp + "°F";
    currentWeatherContainerEl.appendChild(tempEl);
 
    // div to hold wind info
@@ -100,7 +132,7 @@ var displayUvi = function(index) {
 
 var displayFiveDay = function(weather) {
    var eachDay = weather.list;
-   console.log(eachDay);
+   //console.log(eachDay);
 
    for(var i = 7; i < eachDay.length; i = i + 8) {
       var dailyForecast = eachDay[i];
@@ -109,9 +141,18 @@ var displayFiveDay = function(weather) {
       var futureEl = document.createElement("div");
       futureEl.classList = "card";
 
+      var futureDate = document.createElement("h5");
+      futureDate.textContent = moment(dailyForecast.dt.value).format("MMM D, YYYY");
+      fiveDayEl.appendChild(futureDate);
+
+      var weatherIcon = document.createElement("img");
+      weatherIcon.setAttribute("src", `http://openweathermap.org/img/wn/${dailyForecast.weather[0].icon}.png`);
+      //console.log(weatherIcon);
+      fiveDayEl.appendChild(weatherIcon);
+
       var futureTempEl = document.createElement("span");
       futureTempEl.classList = "card-body";
-      futureTempEl.textContent = dailyForecast.main.temp + " degrees F";
+      futureTempEl.textContent = dailyForecast.main.temp + " °F";
       fiveDayEl.appendChild(futureTempEl);
 
       var futureWindEl = document.createElement("span");
@@ -128,5 +169,7 @@ var displayFiveDay = function(weather) {
 
    
 }
+
+pastSearch();
 
 SearchForCityEl.addEventListener("submit", formSubmitHandler);
