@@ -1,0 +1,17 @@
+span.good {
+   background-color: green;
+   color: white;
+}
+
+span.moderate {
+   background-color: yellow;
+}
+
+span.severe {
+   background-color: red;
+   color: white
+}
+
+.card-body {
+   flex:auto;
+}
