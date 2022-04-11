@@ -2,6 +2,8 @@
 body {
    margin: 10px;
 }
+
+/* uv index colors*/
 span.good {
    background-color: green;
    color: white;
@@ -22,16 +24,19 @@ span.severe {
    border-radius: 5px;
 }
 
+/* current weather styling*/
 .list-item {
    padding-bottom: 10px;
    font-size: larger;
 }
 
+/* colors for headers*/
 .card-header, .btn {
    background-color: #1e6eb0;
    color: white;
 }
 
+/* styling for past search buttons*/
 .past {
    background-color: #a0a5a8;
    margin: 10px 20px;

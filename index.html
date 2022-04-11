@@ -17,6 +17,7 @@
     <h1 class=" text-white app-title"><i class="fa-solid fa-cloud-sun"></i>  Weather Dashboard  <i class="fa-solid fa-cloud-sun"></i></h1>
   </header>
 
+  <!-- search box and past search buttons -->
   <main class="row">
    <div class="col-md-4">
       <div class="border-bottom border-dark">
@@ -25,12 +26,12 @@
             <input name="city" id="city" type="text" autofocus="true" class="form-input m-3" />
             <button type="submit" class="btn btn-primary m-3">Search</button>
          </form>
-         <br>
-            
+         <br>     
       </div>
       <div class="card" id="past-searches"></div>
    </div>
    
+   <!-- current weather search -->
    <div class="col-md-8">
       <div class="row" id="current-weather">
          <div class="col-12">
@@ -39,6 +40,7 @@
             </div>
          </div>
       </div>
+      <!-- 5 day forecast -->
       <div class="row">
          <h2 class="col-12"id="title"></h2>
          <div class="d-lg-flex text-center five-day" id="five-day">
