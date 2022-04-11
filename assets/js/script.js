@@ -3,8 +3,9 @@ var cityInputEl = document.querySelector("#city");
 var currentWeatherContainerEl = document.querySelector("#current-info");
 var currentSearch = document.querySelector("#current-city");
 var fiveDayEl = document.querySelector("#five-day");
-var savedCities = [];
+var fiveDayTitle = document.querySelector("#title");
 var savedSearchContainerEl = document.querySelector("#past-searches");
+var savedCities = [];
 
 
 var formSubmitHandler = function(event) {
@@ -76,6 +77,7 @@ var savedSearch = function() {
 var pastSearch = function(pastSearch) {
    
       var savedSearchEl = document.createElement("button");
+      savedSearchEl.classList = "past";
       savedSearchEl.textContent = pastSearch;
       savedSearchEl.setAttribute("data-city", pastSearch);
       savedSearchEl.setAttribute("type", "submit");
@@ -100,16 +102,19 @@ var currentWeather = function(weather, citySearch) {
    // div to hold temperature info
    var tempEl = document.createElement("div");
    tempEl.textContent = "Temperature: " + weather.main.temp + "°F";
+   tempEl.classList = "list-item";
    currentWeatherContainerEl.appendChild(tempEl);
 
    // div to hold wind info
    var windEl = document.createElement("div");
    windEl.textContent = "Wind: " + weather.wind.speed + " MPH";
+   windEl.classList = "list-item";
    currentWeatherContainerEl.appendChild(windEl);
    
    // div to hold humidity info
    var humidityEl = document.createElement("div");
    humidityEl.textContent = "Humidity: " + weather.main.humidity + " %";
+   humidityEl.classList = "list-item";
    currentWeatherContainerEl.appendChild(humidityEl);
 
    var lat = weather.coord.lat;
@@ -121,6 +126,7 @@ var currentWeather = function(weather, citySearch) {
 var displayUvi = function(index) {
    var uviEl = document.createElement("div");
    uviEl.textContent = "UV Index: ";
+   uviEl.classList = "list-item";
 
    var uviValue = document.createElement("span");
    uviValue.textContent = index.value;
@@ -140,7 +146,9 @@ var displayUvi = function(index) {
 var displayFiveDay = function(weather) {
 
    fiveDayEl.textContent="";
-   
+
+   fiveDayTitle.textContent = "5-Day Forecast:";
+
    var eachDay = weather.list;
    //console.log(eachDay);
 
@@ -149,7 +157,7 @@ var displayFiveDay = function(weather) {
       console.log(dailyForecast);
 
       var futureEl = document.createElement("div");
-      futureEl.classList = "card";
+      futureEl.classList = "card m-3";
 
       var futureDate = document.createElement("h5");
       futureDate.textContent = moment.unix(dailyForecast.dt).format("MMM D, YYYY");
@@ -163,17 +171,17 @@ var displayFiveDay = function(weather) {
 
       var futureTempEl = document.createElement("span");
       futureTempEl.classList = "card-body";
-      futureTempEl.textContent = dailyForecast.main.temp + " °F";
+      futureTempEl.textContent = "Temp: " + dailyForecast.main.temp + " °F";
       futureEl.appendChild(futureTempEl);
 
       var futureWindEl = document.createElement("span");
       futureWindEl.childList = "card-body";
-      futureWindEl.textContent = dailyForecast.wind.speed + " MPH";
+      futureWindEl.textContent = "Wind: " + dailyForecast.wind.speed + " MPH";
       futureEl.appendChild(futureWindEl);
 
       var futureHumidityEl = document.createElement("span");
       futureHumidityEl.classList = "card-body";
-      futureHumidityEl.textContent = dailyForecast.main.humidity + " %";
+      futureHumidityEl.textContent = "Humidity: " + dailyForecast.main.humidity + "%";
       futureEl.appendChild(futureHumidityEl);
 
       fiveDayEl.appendChild(futureEl);

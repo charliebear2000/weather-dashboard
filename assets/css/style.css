@@ -1,17 +1,40 @@
+
+body {
+   margin: 10px;
+}
 span.good {
    background-color: green;
    color: white;
+   padding: 0 5px;
+   border-radius: 5px;
 }
 
 span.moderate {
    background-color: yellow;
+   padding: 0 5px;
+   border-radius: 5px;
 }
 
 span.severe {
    background-color: red;
-   color: white
+   color: white;
+   padding: 0 5px;
+   border-radius: 5px;
 }
 
-.card-body {
-   flex:auto;
+.list-item {
+   padding-bottom: 10px;
+   font-size: larger;
+}
+
+.card-header, .btn {
+   background-color: #1e6eb0;
+   color: white;
+}
+
+.past {
+   background-color: #a0a5a8;
+   margin: 10px 20px;
+   border-radius: 5px;
+   padding: 10px;
 }
