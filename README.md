@@ -10,7 +10,7 @@ This is an assignment for my coding bootcamp. The assignment is to create a webs
 * When the user clicks on a past search in the search history, then that city's weather conditions are presented.
 
 ### Screenshot
-![Amy Rawls Weather Dashboard Website](https://github.com/charliebear2000/weather-dashboard/blob/main/screenshot.png?raw=true)
+![Amy Rawls Weather Dashboard Website](https://github.com/charliebear2000/weather-dashboard/blob/main/snapshot.png?raw=true)
 
 #### URL
 https://charliebear2000.github.io/weather-dashboard/
